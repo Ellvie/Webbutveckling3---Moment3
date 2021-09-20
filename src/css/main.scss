@@ -1,0 +1,149 @@
+//Normalize -----------------------------------------------------------------
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+//Variables -----------------------------------------------------------------
+$pink: rgb(255, 174, 187);
+$dark: rgb(37, 37, 37);
+$light: rgb(255, 242, 242);
+
+
+//Mixins --------------------------------------------------------------------
+@mixin structure($desktop: true) {
+    @if $desktop { // If-statement
+        display: flex;
+        padding: 1em; 
+    }
+    @else { //Else-statement
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+    }
+}
+
+@mixin picture() {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+//General style ------------------------------------------------------------
+body {
+    background-color: $pink;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+    width: 70%;
+    margin: 0 auto;
+    background-color: $light;
+    padding: 3em;
+}
+
+
+//Nesting menu -------------------------------------------------------------
+header {
+    background-color: $light;
+    padding: 1em;
+    box-shadow: 1px 5px darken($pink, 20%);
+
+    ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 70%;
+        margin: 0 auto;
+        list-style: none;
+    }
+
+    li:first-of-type {
+        color: darken($pink, 50%); //Colour function - Darken
+        font-size: 3em;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    a {
+        color: lighten($dark, 20%); //Colour function - Lighten
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: darken($pink, 50%); //Darken
+    }
+
+    #here {
+        color: darken($pink, 50%); //Darken
+    }
+}
+
+
+//Article ----------------------------------------------------------------
+article {
+    @include structure($desktop: true); //Mixin & If/Else-statement
+}
+
+img {
+    @include picture; //Mixin
+}
+
+.pic {
+    width: 50%;
+}
+
+.text {
+    @extend .pic; //Extend
+    margin-left: 1em;
+}
+
+
+//Typography -------------------------------------------------------------
+h1 {
+    margin-left: 1rem;
+    color: darken($pink, 50%); //Darken
+    display: none;
+}
+
+h2 {
+    margin-bottom: 1rem;
+    color: darken($pink, 50%); //Darken
+}
+
+
+
+//Media queries
+@media screen and (max-width: 850px) {
+
+    main {
+        width: 100%;
+        padding: 0;
+    }
+
+    header {
+        ul {
+            width: 100%;
+            padding: 0 1rem 0 1rem;
+            flex-direction: column;
+        }
+    }
+
+    article {
+        @include structure($desktop: false); //Mixin & If/Else-statement
+        padding: 0;
+    }
+
+    .pic {
+        width: 100%;
+    }
+    
+    .text {
+        @extend .pic; //Extend
+        padding: 1em;
+        margin: 0;
+    }
+} 
